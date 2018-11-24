@@ -1,3 +1,5 @@
+//Referenced: https://sea-region.github.com/FreeCodeCamp-Projects/fcc-frontend-projects/blob/master/Projects/Tic%20Tac%20Toe/script.js
+
 //Global object
 let origBoard;
 //Players in the game
@@ -36,7 +38,7 @@ function turnClick(square){
     //Check if there is a tie or when board is full
     if(typeof origBoard[square.target.id] == 'number') {
         turn(square.target.id, human)
-        if (!checkTie()) turn(bestSport(), aiPlayer);
+        if (!checkTie()) turn(bestSpot(), aiPlayer);
     }
 }
 
@@ -65,22 +67,41 @@ function checkWin(board, player) {
 
 //Game Over Function
 function gameOver(gameWon) {
-    for (let index of winCombos[gameWon.index]) {
-        document.getElementById(index).style.backgroundColor =
-            gameWon.player == human ? 'blue' : 'red';
+        for (let index of winCombos[gameWon.index]) {
+            document.getElementById(index).style.backgroundColor =
+                gameWon.player == human ? 'blue' : 'red';
+        }
+        for (var i = 0; i < cells.length; i++) {
+            cells[i].removeEventListener('click', turnClick, false);
+        }
+        declareWinner(gameWon.player == human ? "You're a Winner!!!" : "You're a Loser!!!")
     }
-    for (var i = 0; i < cells.length; i++) {
-        cells[i].removeEventListener('click', turnClick, false);
-    }
+
+//Declare Winner Function
+function declareWinner(who) {
+    document.querySelector(".endgame").style.display = "block";
+    document.querySelector(".endgame .text").innerText = who;
 }
 
 //Empty Square Function
 function emptySquares() {
-    return.origBoard.filter( s => typeof s == 'number')
+    return origBoard.filter( s => typeof s == 'number');
 }
-
 
 //Check Best Spot Function
 function bestSpot(){
     return emptySquares()[0];
+}
+
+//Check Tie Function
+function checkTie(){
+    if (emptySquares().length == 0) {
+        for (var i = 0; i < cells.length; i++){
+            cells[i].style.backgroundColor = "green";
+            cells[i].removeEventListener('click', turnClick, false);
+        }
+        declareWinner("Tie Game!")
+        return true;
+    }
+    return false;
 }
