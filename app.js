@@ -1,4 +1,15 @@
+/*
+GitHub Push:
+
+git remote add origin https://github.com/alexsjcho/tic-tac-toe-lab.git
+git push -u origin master
+
+
+*/
+
 //Referenced: https://sea-region.github.com/FreeCodeCamp-Projects/fcc-frontend-projects/blob/master/Projects/Tic%20Tac%20Toe/script.js
+
+//https://www.youtube.com/watch?v=P2TcQ3h0ipQ
 
 //Global object
 let origBoard;
